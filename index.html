@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Día Internacional de Internet Seguro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding-bottom: 50px; /* Para dar espacio al pie de página fijo */
+        }
+
+        /* Encabezado */
+        header {
+            background-color: #1a2d3e;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+            font-family: 'Open Sans', sans-serif;
+            border-bottom: 4px solid #365a97;
+        }
+
+        header h1 {
+            font-size: 3.8em;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.2em;
+            font-weight: 400;
+            margin-top: 10px;
+            color: #e0e0e0;
+        }
+
+        /* Menú de navegación */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background-color: #1a2d3e;
+            padding-top: 30px;
+            box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            overflow-y: auto;
+            transform: translateX(-250px); /* Menú oculto */
+            transition: transform 0.3s ease;
+        }
+
+        nav.open {
+            transform: translateX(0); /* Mostrar menú */
+        }
+
+        nav a {
+            display: block;
+            color: white;
+            padding: 15px 20px;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: 600;
+            border-bottom: 1px solid #3b4d63;
+            transition: background-color 0.3s ease;
+            text-align: center;
+        }
+
+        nav a:hover {
+            background-color: #304e68;
+        }
+
+        /* Botón de menú */
+        .menu-btn {
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+            padding: 20px;
+            display: block;
+            background-color: #1a2d3e;
+            border: none;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 101;
+        }
+
+        .menu-btn i {
+            color: white;
+        }
+
+        /* Contenido principal */
+        main {
+            margin-left: 270px;
+            padding: 20px;
+            max-width: 1200px;
+            margin-right: 20px;
+        }
+
+        h2, h3 {
+            text-align: center;
+            color: #1a2d3e;
+        }
+
+        h2 {
+            font-size: 2.8em;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-size: 2.2em;
+            color: #3b4d63;
+        }
+
+        p {
+            font-size: 1.1em;
+            color: #555;
+            text-align: justify;
+            line-height: 1.8;
+            margin: 15px 0;
+        }
+
+        section {
+            margin: 40px 0;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            display: none; /* Ocultar todas las secciones inicialmente */
+            opacity: 0; /* Iniciar con opacidad cero */
+            transform: translateX(100%); /* Desplazar hacia la derecha */
+            transition: opacity 1s ease, transform 1s ease; /* Transición suave */
+        }
+
+        section.active {
+            display: block; /* Mostrar solo las secciones activas */
+            opacity: 1; /* Hacer visible */
+            transform: translateX(0); /* Mover a su posición original */
+        }
+
+        section img {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        /* Cajas de información destacada */
+        .info-box {
+            background-color: #f0f4f8;
+            padding: 20px;
+            border-left: 5px solid #5a7d94;
+            margin-top: 20px;
+            font-size: 1.2em;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        /* Estilo para botones */
+        .button {
+            background-color: #4e73df;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .button:hover {
+            background-color: #365a97;
+        }
+
+        /* Estilo específico para botones de "Subir imágenes" */
+        .upload-button {
+            background-color: #ff6347; /* Color de fondo */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .upload-button:hover {
+            background-color: #e04e3a; /* Color cuando el botón es hover */
+        }
+
+        /* Contenedor para visualizar imagen */
+        .image-container {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f0f4f8;
+            border-radius: 10px;
+            border: 2px dashed #365a97;
+            min-height: 200px;
+            text-align: center;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        /* Estilos para la tabla de videos */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #1a2d3e;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f4f4f4;
+        }
+
+        /* Pie de página */
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #1a2d3e;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 1.1em;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- Menú de navegación y botón de menú -->
+<button class="menu-btn" onclick="toggleMenu()">
+    <i class="fas fa-bars"></i>
+</button>
+<nav id="navMenu">
+    <a href="javascript:void(0);" onclick="showSection('introduccion')"><i class="fas fa-info-circle"></i> Introducción</a>
+    <a href="javascript:void(0);" onclick="showSection('contraseñas')"><i class="fas fa-lock"></i> Contraseñas seguras</a>
+    <a href="javascript:void(0);" onclick="showSection('dispositivos')"><i class="fas fa-mobile-alt"></i> Seguridad en dispositivos</a>
+    <a href="javascript:void(0);" onclick="showSection('trabajo')"><i class="fas fa-briefcase"></i> Ciberseguridad en el trabajo</a>
+    <a href="javascript:void(0);" onclick="showSection('phishing')"><i class="fas fa-envelope-open-text"></i> Phishing y fraudes</a>
+    <a href="javascript:void(0);" onclick="showSection('proteccion')"><i class="fas fa-child"></i> Protección infantil</a>
+</nav>
+
+<!-- Encabezado -->
+<header>
+    <h1>Día Internacional de Internet Seguro</h1>
+    <p>Promoviendo el uso seguro y positivo de la tecnología para todos</p>
+</header>
+
+<!-- Contenido principal -->
+<main>
+    <section id="introduccion" class="active">
+        <h2>Introducción</h2>
+        <p>El Día Internacional del Internet Seguro tiene como objetivo promover el uso responsable, seguro y positivo de la tecnología, especialmente para los niños y adolescentes. Se celebra cada año en febrero con el fin de sensibilizar a la sociedad sobre los peligros de la red y cómo prevenirlos.</p>
+    </section>
+    <section id="contraseñas">
+        <h3>Contraseñas Seguras</h3>
+        <p>Para mantener tu información segura, es fundamental usar contraseñas fuertes. Las mejores contraseñas deben incluir una combinación de letras, números y símbolos, y evitar usar información personal como fechas de nacimiento.</p>
+    </section>
+
+    <section id="dispositivos">
+        <h3>Seguridad en Dispositivos</h3>
+        <p>La protección de tus dispositivos es esencial para evitar vulnerabilidades. Asegúrate de tener siempre actualizado tu software y utiliza un buen antivirus.</p>
+    </section>
+
+    <section id="trabajo">
+        <h3>Ciberseguridad en el Trabajo</h3>
+        <p>Es importante crear un entorno seguro dentro de la organización. Esto incluye políticas de seguridad estrictas, formación constante y el uso de herramientas de protección avanzadas.</p>
+    </section>
+
+    <section id="phishing">
+        <h3>Phishing y Fraudes</h3>
+        <p>El phishing es un intento de obtener información confidencial a través de correos electrónicos o sitios web fraudulentos. Siempre verifica el origen antes de hacer clic en enlaces sospechosos.</p>
+    </section>
+
+    <section id="proteccion">
+        <h3>Protección Infantil</h3>
+        <p>Es fundamental educar a los más jóvenes sobre los peligros en línea y protegerlos de contenidos inapropiados mediante el uso de herramientas de control parental.</p>
+    </section>
+
+</main>
+
+<!-- Pie de página -->
+<footer>
+    <p>&copy; 2025 Día Internacional del Internet Seguro. Todos los derechos reservados.</p>
+</footer>
+
+<script>
+    // Función para mostrar las secciones al hacer clic en los enlaces del menú
+    function showSection(sectionId) {
+        const sections = document.querySelectorAll('section');
+        sections.forEach(section => section.classList.remove('active'));
+
+        const activeSection = document.getElementById(sectionId);
+        activeSection.classList.add('active');
+    }
+
+    // Función para abrir y cerrar el menú
+    function toggleMenu() {
+        const menu = document.getElementById('navMenu');
+        menu.classList.toggle('open');
+    }
+</script>
+
+</body>
+</html>
